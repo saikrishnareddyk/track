@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML to PDF Conversion</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+  
+</head>
+<body>
+  <!-- Your HTML content goes here -->
+  <div id="captureElement">
+    <h1>Hello, World!</h1>
+    <picture>
+      <img src="https://saikrishnareddyk.github.io/images/js.png" alt="image" width="300px" height="300px">
+    </picture>
+    <!-- <img src="https://www.laspiritsawards.com/wp-content/uploads/2023/02/FinalRowOfBottles-withHangTags-1600x1189px.png" alt="image"> -->
+    <!-- Other content -->
+  </div>
+<!-- Add a button to trigger the screenshot and PDF generation -->
+<button onclick="generatePDF()">Generate PDF</button>
+
+
+
+  <script>
+    function generatePDF() {
+      const elementToCapture = document.getElementById('captureElement'); // Replace 'captureElement' with the ID of the element you want to capture (e.g., the entire HTML body).
+  
+      // Use html2canvas to capture the element as an image.
+      html2canvas(elementToCapture).then(canvas => {
+        // Create a new PDF document using jspdf.
+        const pdf = new jspdf.jsPDF();
+  
+        // Get the data URL from the canvas and add it as an image in the PDF document.
+        const imgData = canvas.toDataURL('image/png');
+        console.log(imgData)
+        pdf.addImage(imgData, 'PNG', 0, 0,);
+  
+        // Save the PDF to your desired location or open it in a new tab.
+        // For example, to open it in a new tab:
+        pdf.save('screenshot.pdf');
+      });
+    }
+  </script>
+  
+</body>
+</html>
